@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCA Result - 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="KBCNMUlogo.jpeg" alt="KBCNMU Logo" class="logo">
+                <div class="title-container">
+                    <h1>MCA Semester-II Examination Apr/May - 2025</h1>
+                    <h3>School of Computer Sciences KBCNMU, Jalgaon</h3>
+                </div>
+                <img src="LOGO2.jpg" alt="KBCNMU Logo" class="logo">
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Student Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="SEAT_NO"><b>SEAT NUMBER</b></label>
+                    <input type="number" id="SEAT_NO" name="SEAT_NO"  required>
+                </div>
+                <div class="form-group">
+                    <label for="MOTHER_NAME"><b>MOTHER NAME</b></label>
+                    <input type="text" id="MOTHER_NAME" name="MOTHER_NAME" placeholder="Enter Here" required>
+                </div>
+                <button type="submit">View Results</button>
+            </form>
+            <div id="resultContainer" class="hidden">
+                <h3>Your Result</h3>
+                <p><strong>Total Score:</strong> <span id="totalScore"></span>/40</p>
+                <canvas id="resultChart"></canvas>
+                <button onclick="logout()">Logout</button>
+            </div>
+            <div id="errorMessage" class="error hidden"></div>
+        </div>
+        
+        <footer>
+            <p>💻 &copy; This is provisional result 💻</p>
+        </footer>
+    </div>
+    <script src="login.js"></script>
+</body>
+
+</html>
