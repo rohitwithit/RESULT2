@@ -7,16 +7,16 @@ async function fetchResults() {
         const SEAT_NO = localStorage.getItem('userSEAT_NO');
         if (!SEAT_NO) window.location.href = 'index.html';
 
-        const studentData = data.find(student => 
+        const studentData = data.find(student =>
             student.SEAT_NO === parseInt(SEAT_NO)
         );
 
         if (studentData) displayResults(studentData);
-        else document.getElementById('resultDetails').innerHTML = 
+        else document.getElementById('resultDetails').innerHTML =
             '<div class="error">No results found</div>';
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('resultDetails').innerHTML = 
+        document.getElementById('resultDetails').innerHTML =
             '<div class="error">Error loading results</div>';
     }
 }
@@ -120,6 +120,7 @@ function displayResults(data) {
     document.getElementById('MCA428BTGP').textContent = data.MCA428BTGP;
     document.getElementById('MCA428BSTATUS').textContent = data.MCA428BSTATUS;
 
+
     // Total/CGPA
     document.getElementById('TOTAL').textContent = data.TOTAL;
     document.getElementById('PERCENTAGE').textContent = data.PERCENTAGE;
@@ -132,8 +133,8 @@ function displayResults(data) {
     const subjectCode1 = document.getElementById('subjectCodeElective1');
     const subjectName1 = document.getElementById('subjectNameElective1');
 
-    const specificSeatNumbers = [ 
-        380785,  
+    const specificSeatNumbers = [
+        380785,
         380788,
         380793,
         380798,
@@ -164,7 +165,7 @@ function displayResults(data) {
         subjectName1.textContent = 'MCA-427(B) Lab on Python Programming';
     }
 
-
+    document.getElementById('PHOTO').src = data.PHOTO;
 }
 
 function logout() {
@@ -172,3 +173,49 @@ function logout() {
     window.location.href = 'index.html';
 }
 document.addEventListener('DOMContentLoaded', fetchResults);
+
+function downloadPDF() {
+    // Get button container and store original display style
+    const buttonContainer = document.querySelector('#btn11').parentNode;
+    const originalDisplay = window.getComputedStyle(buttonContainer).display;
+
+    // Hide buttons temporarily
+    buttonContainer.style.display = 'none';
+
+    // Initialize jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+
+    // Get the HTML element to convert
+    const element = document.querySelector('.container');
+
+    // html2canvas options
+    const options = {
+        scale: 2,
+        useCORS: true,
+        logging: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight
+    };
+
+    // Generate PDF
+    html2canvas(element, options).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = doc.internal.pageSize.getWidth() - 20;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        doc.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+        const seatNo = document.getElementById('SEAT_NO').textContent.trim();
+        const name = document.getElementById('NAME').textContent.trim();
+        doc.save(`${seatNo}_${name}_Result.pdf`);
+
+    }).finally(() => {
+        // Restore buttons visibility
+        buttonContainer.style.display = originalDisplay;
+    });
+
+
+    alert("wait 10 seconds for Downloading PDF..");
+}
