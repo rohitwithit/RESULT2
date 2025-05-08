@@ -272,23 +272,23 @@ button:hover {
 }
 
 .logout-btn {
-    background-color: #0fb520;
+    background-color: #CB0404;
     color: #f5f9f5;
     border: 1px solid #dadce0;
 }
 
 .logout-btn:hover {
-    background-color: #0f970a;
+    background-color: #BE5B50;
 }
 
-.pdf-btn {
-    background-color: #0fb520;
+.download-btn1 {
+    background-color: #73946B;
     color: #f5f9f5;
     border: 1px solid #dadce0;
 }
 
-.pdf-btn:hover {
-    background-color: #0f970a;
+.download-btn1:hover {
+    background-color: #6FE6FC;
 }
 
 /* Footer Styles */
